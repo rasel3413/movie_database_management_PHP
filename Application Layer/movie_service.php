@@ -3,9 +3,9 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 include '../Data Layer/db_connect.php';
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
-    $action = $_POST['action'];
+    $action = $_GET['action'];
 
     switch ($action) {
         case 'add_bollywood':
@@ -32,9 +32,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             break;
         case 'show_hollywood':
             header('Location: /movie_database_management/Presentation Layer/show_all_hollywoodmovie.php');
-            break;
-        case 'exit':
-            exit(); // Ensure no further code is executed
             break;
         default:
             echo "Invalid action.";

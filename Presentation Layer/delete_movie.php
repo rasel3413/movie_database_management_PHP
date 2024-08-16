@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt = $conn->prepare($sql);
         if ($stmt === false) {
             die("Error preparing statement: " . $conn->error);
-        }        // Bind parameters and execute
+        }       
 
 
         $stmt->bind_param("i", $deleteId);
@@ -100,12 +100,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <button type="submit" class="btn btn-primary">Search</button>
     </form>
 
-    <div class="results mt-4">
-        <?php if ($_SERVER['REQUEST_METHOD'] == 'POST' && !isset($_POST['delete_id'])) { searchMovies($conn, $attribute, $searchValue); } ?>
-    </div>
+  
 </div>
 
-<!-- Bootstrap JS and dependencies -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 </body>

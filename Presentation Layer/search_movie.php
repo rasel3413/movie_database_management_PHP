@@ -7,8 +7,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $attribute = $_POST['attribute'];
     $searchValue = $_POST['searchValue'];
     $handler = new SearchMovieHandler($conn);
-
-
     $result =  $handler->searchMovies($attribute, $searchValue);
     if ($result->num_rows > 0) {
         echo '<div class="container m-4">';

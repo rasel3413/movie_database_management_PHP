@@ -9,10 +9,8 @@ class SearchMovieHandler
         $this->conn = $conn;
     }
 
-
     public function searchMovies($attribute, $searchValue)
     {
-
         $validAttributes = ['title', 'releaseYear', 'genre', 'ratings', 'duration', 'director', 'producer', 'songs', 'language'];
         if (!in_array($attribute, $validAttributes)) {
             throw new Exception("Invalid search attribute.");
@@ -46,7 +44,7 @@ class SearchMovieHandler
     }
     public function getAllBollywoodMovies()
     {
-        $query = "SELECT * FROM " . "bollywood" ;
+        $query = "SELECT * FROM bollywood";
 
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
@@ -56,7 +54,7 @@ class SearchMovieHandler
     }
     public function getAllHollywoodMovies()
     {
-        $query = "SELECT * FROM " . "hollywood" ;
+        $query = "SELECT * FROM hollywood";
 
         $stmt = $this->conn->prepare($query);
         $stmt->execute();

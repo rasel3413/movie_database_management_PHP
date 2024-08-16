@@ -10,7 +10,7 @@ $handler = new SearchMovieHandler($conn);
 
 $movies =  $handler->getAllHollywoodMovies();
 
-// Fetch all movies
+
 ?>
 
 <!DOCTYPE html>

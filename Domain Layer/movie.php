@@ -2,7 +2,8 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 include 'Imovie.php';
-class Movie implements IMovie {
+class Movie implements IMovie
+{
     protected $title;
     protected $releaseYear;
     protected $genre;
@@ -14,7 +15,8 @@ class Movie implements IMovie {
     protected $actors = [];
     protected $type;
 
-    public function __construct($title, $releaseYear, $genre, $ratings, $duration, $director, $producer, $type) {
+    public function __construct($title, $releaseYear, $genre, $ratings, $duration, $director, $producer, $type)
+    {
         $this->title = $title;
         $this->releaseYear = $releaseYear;
         $this->genre = $genre;
@@ -25,17 +27,17 @@ class Movie implements IMovie {
         $this->type = $type;
     }
 
-  
 
-    public function getDescription($attribute,$conn,$searchValue) {
+
+    public function getDescription($attribute, $conn, $searchValue)
+    {
         // Validate the attribute
-       
-    }
-    public function saveToDatabase($conn){
 
     }
+    public function saveToDatabase($conn) {}
 
-    public function updateDetails($newDetails) {
+    public function updateDetails($newDetails)
+    {
         foreach ($newDetails as $key => $value) {
             if (!empty($value)) {
                 $this->$key = $value;

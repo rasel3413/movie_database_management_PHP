@@ -29,10 +29,9 @@ class HollyWoodMovie extends Movie {
     }
 
     public function saveToDatabase($conn) {
-        // Check if the table exists
         $result = $conn->query("SHOW TABLES LIKE 'hollywood'");
         if ($result->num_rows == 0) {
-            // Create table if it doesn't exist
+          
             $createTableSql = "CREATE TABLE hollywood (
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 title VARCHAR(255) NOT NULL,

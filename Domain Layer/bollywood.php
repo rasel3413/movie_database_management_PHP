@@ -1,21 +1,25 @@
-<?php 
+<?php
 include 'movie.php';
-class BollywoodMovie extends Movie {
+class BollywoodMovie extends Movie
+{
     private $songs;
     private $language;
 
-    public function __construct($title, $releaseYear, $genre, $ratings, $duration, $director, $producer, $songs, $language) {
+    public function __construct($title, $releaseYear, $genre, $ratings, $duration, $director, $producer, $songs, $language)
+    {
         parent::__construct($title, $releaseYear, $genre, $ratings, $duration, $director, $producer, "bollywood");
         $this->songs = $songs;
         $this->language = $language;
     }
 
-    public function saveToDatabase($conn) {
-      
-    
+    public function saveToDatabase($conn)
+    {
+
+
         $result = $conn->query("SHOW TABLES LIKE 'bollywood'");
         if ($result->num_rows == 0) {
-       
+            echo "i am createing bollywood databas";
+
             $createTableSql = "CREATE TABLE bollywood (
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 title VARCHAR(255) NOT NULL,
@@ -33,25 +37,23 @@ class BollywoodMovie extends Movie {
         }
 
         echo "i am here in the databsse";
-    $insertSql = "INSERT INTO bollywood (title, releaseYear, genre, ratings, duration, director, producer, songs, language, type) 
+        $insertSql = "INSERT INTO bollywood (title, releaseYear, genre, ratings, duration, director, producer, songs, language, type) 
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'bollywood')";
 
-    $stmt = $conn->prepare($insertSql);
-    if ($stmt === false) {
-        die("Error preparing statement: " . $conn->error);
-    }
+        $stmt = $conn->prepare($insertSql);
+        if ($stmt === false) {
+            die("Error preparing statement: " . $conn->error);
+        }
 
-    $stmt->bind_param("ssssissss", $this->title, $this->releaseYear, $this->genre, $this->ratings, $this->duration, $this->director, $this->producer, $this->songs, $this->language);
+        $stmt->bind_param("ssssissss", $this->title, $this->releaseYear, $this->genre, $this->ratings, $this->duration, $this->director, $this->producer, $this->songs, $this->language);
 
-    if ($stmt->execute()) {
-        echo "New record created successfully.";
-    } else {
-        echo "Error: " . $stmt->error;
-    }
+        if ($stmt->execute()) {
+            echo "New record created successfully.";
+        } else {
+            echo "Error: " . $stmt->error;
+        }
 
-    $stmt->close();
-    $conn->close();
+        $stmt->close();
+        $conn->close();
     }
 }
-
-?>

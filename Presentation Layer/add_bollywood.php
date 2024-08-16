@@ -3,8 +3,8 @@
     ?>
 <?php
 // echo "i am here in add bollywood ";
-require_once '../Application Layer/add_bollywood_handler.php'; // Adjust path as needed
-include '../Data Layer/db_connect.php'; // Adjust path as needed
+require_once '../Application Layer/add_bollywood_handler.php'; 
+include '../Data Layer/db_connect.php'; 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $handler = new AddBollywoodMovieHandler($conn);

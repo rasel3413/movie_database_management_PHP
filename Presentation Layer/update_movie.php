@@ -1,10 +1,9 @@
-
 <?php
-    include 'header.php';
-    ?>
+include 'header.php';
+?>
 <?php
-include '../Data Layer/db_connect.php'; 
-include '../Domain Layer/movie.php'; 
+include '../Data Layer/db_connect.php';
+include '../Domain Layer/movie.php';
 require '../Application Layer/search_movie_handler.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -12,9 +11,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $attribute = $_POST['attribute'];
         $searchValue = $_POST['searchValue'];
         $handler = new SearchMovieHandler($conn);
-    
-    
-      $result=  $handler->searchMovies($attribute, $searchValue);
+
+
+        $result =  $handler->searchMovies($attribute, $searchValue);
 
         if ($result->num_rows > 0) {
             echo '<form method="post" action="update_movie.php">';
@@ -37,27 +36,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         } else {
             echo '<div class="alert alert-info" role="alert">No results found.</div>';
         }
-
-   
     }
 
     if (isset($_POST['edit_movie'])) {
         $updateId = $_POST['update_id'];
         $movieType = $_POST['movie_type'];
-    
+
         $table = $movieType == 'bollywood' ? 'bollywood' : 'hollywood';
-    
+
         $sql = "SELECT * FROM $table WHERE id = ?";
         $stmt = $conn->prepare($sql);
         if ($stmt === false) {
             die("Error preparing statement: " . $conn->error);
         }
-    
+
         $stmt->bind_param("i", $updateId);
         $stmt->execute();
         $result = $stmt->get_result();
         $movie = $result->fetch_assoc();
-    
+
         if (!$movie) {
             $alternateTable = $movieType == 'bollywood' ? 'hollywood' : 'bollywood';
             $sql = "SELECT * FROM $alternateTable WHERE id = ?";
@@ -65,20 +62,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($stmt === false) {
                 die("Error preparing statement: " . $conn->error);
             }
-    
+
             $stmt->bind_param("i", $updateId);
             $stmt->execute();
             $result = $stmt->get_result();
             $movie = $result->fetch_assoc();
-    
+
             $movieType = $alternateTable;
         }
-    
+
         if (!$movie) {
             echo '<div class="alert alert-danger" role="alert">Movie not found in either table.</div>';
             return;
         }
-    
+
         echo '<form method="post" action="update_movie.php">';
         echo '<div class="card p-4 mx-auto" style="max-width: 600px;">';
         echo '<h4 class="mb-4 text-center">Edit Movie Details</h4>';
@@ -95,16 +92,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo '<button type="submit" name="update_movie" class="btn btn-success">Update Movie</button>';
         echo '</div>';
         echo '</form>';
-    
+
         $stmt->close();
     }
-    
+
     if (isset($_POST['update_movie'])) {
         $updateId = $_POST['update_id'];
         $movieType = $_POST['movie_type'];
         $table = $movieType == 'bollywood' ? 'bollywood' : 'hollywood';
 
-     
+
         $columns = ['title', 'releaseYear', 'genre', 'ratings', 'duration', 'director', 'producer', 'songs', 'language'];
         $updateFields = [];
         $updateValues = [];
@@ -139,45 +136,49 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Update Movie</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
 
-<div class="container mt-5">
-    <h1 class="mb-4 text-center">Search and Update Movies</h1>
+    <div class="container mt-5">
+        <h1 class="mb-4 text-center">Search and Update Movies</h1>
 
-    <form action="update_movie.php" method="post">
-        <div class="mb-3">
-            <label for="attribute" class="form-label">Search Attribute</label>
-            <select class="form-select" id="attribute" name="attribute">
-                <option value="title">Title</option>
-                <option value="releaseYear">Release Year</option>
-                <option value="genre">Genre</option>
-                <option value="ratings">Ratings</option>
-                <option value="duration">Duration</option>
-                <option value="director">Director</option>
-                <option value="producer">Producer</option>
-                <option value="songs">Songs/BoxOffice</option>
-                <option value="language">Language</option>
-            </select>
+        <form action="update_movie.php" method="post">
+            <div class="mb-3">
+                <label for="attribute" class="form-label">Search Attribute</label>
+                <select class="form-select" id="attribute" name="attribute">
+                    <option value="title">Title</option>
+                    <option value="releaseYear">Release Year</option>
+                    <option value="genre">Genre</option>
+                    <option value="ratings">Ratings</option>
+                    <option value="duration">Duration</option>
+                    <option value="director">Director</option>
+                    <option value="producer">Producer</option>
+                    <option value="songs">Songs/BoxOffice</option>
+                    <option value="language">Language</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="searchValue" class="form-label">Search Value</label>
+                <input type="text" class="form-control" id="searchValue" name="searchValue" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+
+        <div class="results mt-4">
+            <?php if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['searchValue'])) { /* This will include the search results */
+            } ?>
         </div>
-        <div class="mb-3">
-            <label for="searchValue" class="form-label">Search Value</label>
-            <input type="text" class="form-control" id="searchValue" name="searchValue" required>
-        </div>
-        <button type="submit" class="btn btn-primary">Search</button>
-    </form>
-      
-    <div class="results mt-4">
-        <?php if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['searchValue'])) { /* This will include the search results */ } ?>
     </div>
-</div>
 
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 </body>
+
 </html>

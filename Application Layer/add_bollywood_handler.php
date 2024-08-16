@@ -1,7 +1,6 @@
 <?php
 
 require_once '../Domain Layer/bollywood.php'; 
-
 class AddBollywoodMovieHandler {
     private $conn;
 
@@ -21,7 +20,6 @@ class AddBollywoodMovieHandler {
         $songs = $postData['songs'];
         $language = $postData['language'];
 
-    
         $movie = new BollywoodMovie($title, $releaseYear, $genre, $ratings, $duration, $director, $producer, $songs, $language);
 
      

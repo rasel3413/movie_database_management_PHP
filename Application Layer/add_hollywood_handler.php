@@ -1,6 +1,5 @@
 <?php
 // echo "i am here in add bollywood handler";
-// require_once '/path/to/your/Data/MovieRepository.php'; 
 require_once '../Domain Layer/hollywood.php';
 class AddHollywoodMovieHandler {
     private $conn;
