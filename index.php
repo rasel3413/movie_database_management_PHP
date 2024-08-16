@@ -20,7 +20,7 @@
         .btn-group {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px; 
+            gap: 10px;
             justify-content: center;
         }
 
@@ -44,7 +44,7 @@
         .btn-primary:hover {
             background: linear-gradient(135deg, #0056b3, #00aaff);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-          
+
         }
 
         .btn-secondary {
@@ -56,7 +56,7 @@
         .btn-secondary:hover {
             background: linear-gradient(135deg, #5a6268, #2b2d2f);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-          
+
         }
 
         .btn-danger {
@@ -68,7 +68,7 @@
         .btn-danger:hover {
             background: linear-gradient(135deg, #c82333, #ff4d4d);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-          
+
         }
 
         .btn-warning {
@@ -80,7 +80,7 @@
         .btn-warning:hover {
             background: linear-gradient(135deg, #e0a800, #ff8700);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-          
+
         }
 
         .btn-success {
@@ -92,7 +92,7 @@
         .btn-success:hover {
             background: linear-gradient(135deg, #218838, #4bbf4b);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-          
+
         }
 
         .btn-info {
@@ -104,7 +104,7 @@
         .btn-info:hover {
             background: linear-gradient(135deg, #117a8b, #3a9ad7);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-          
+
         }
 
         .btn-dark {
@@ -116,7 +116,7 @@
         .btn-dark:hover {
             background: linear-gradient(135deg, #23272b, #3b4147);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-          
+
         }
 
         .results {
@@ -138,21 +138,22 @@
             <div class="col-md-6 d-flex justify-content-center">
                 <form class="form" action="Application Layer/movie_service.php" method="get">
                     <div class="btn-group" role="group">
-                        <button type="submit" class="btn btn-primary" name="action" value="add_bollywood">Add a Bollywood Movie</button>
-                        <button type="submit" class="btn btn-primary" name="action" value="add_hollywood">Add a Hollywood Movie</button>
-                        <button type="submit" class="btn btn-secondary" name="action" value="search_movie">Search for a Movie by Attribute</button>
-                        <button type="submit" class="btn btn-danger" name="action" value="delete_movie">Delete a Movie</button>
+                        <a href="/movie_database_management/Presentation Layer/add_bollywood.php" class="btn btn-primary" role="button">Add a Bollywood Movie</a>
+                        <a href="/movie_database_management/Presentation Layer/add_hollywood.php" class="btn btn-primary" role="button">Add a Hollywood Movie</a>
+                        <a href="/movie_database_management/Presentation Layer/search_movie.php" class="btn btn-secondary" role="button">Search for a Movie by Attribute</a>
+                        <a href="/movie_database_management/Presentation Layer/delete_movie.php" class="btn btn-danger" role="button">Delete a Movie</a>
                     </div>
                 </form>
             </div>
+
             <div class="col-md-6 d-flex justify-content-center">
                 <form class="form" action="Application Layer/movie_service.php" method="get">
                     <div class="btn-group" role="group">
-                        <button type="submit" class="btn btn-warning" name="action" value="update_movie">Update a Movie</button>
-                        <button type="submit" class="btn btn-success" name="action" value="show_all">Show all Movies</button>
-                        <button type="submit" class="btn btn-info" name="action" value="show_bollywood">Show all Bollywood Movies</button>
-                        <button type="submit" class="btn btn-info" name="action" value="show_hollywood">Show all Hollywood Movies</button>
-                        <!-- <button type="submit" class="btn btn-dark" name="action" value="exit">Exit</button> -->
+                        <a href="/movie_database_management/Presentation Layer/update_movie.php" class="btn btn-warning" role="button">Update a Movie</a>
+                        <a href="/movie_database_management/Presentation Layer/show_all_movie.php" class="btn btn-success" role="button">Show all Movies</a>
+                        <a href="/movie_database_management/Presentation Layer/show_all_bollywoodmovie.php" class="btn btn-info" role="button">Show all Bollywood Movies</a>
+                        <a href="/movie_database_management/Presentation Layer/show_all_hollywoodmovie.php" class="btn btn-info" role="button">Show all Hollywood Movies</a>
+                        <!-- <a href="#" class="btn btn-dark" role="button">Exit</a> -->
                     </div>
                 </form>
             </div>
