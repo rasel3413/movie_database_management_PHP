@@ -41,7 +41,7 @@ class BollywoodMovie extends Movie
                 producer VARCHAR(255) NOT NULL,
                 songs TEXT,
                 language VARCHAR(50),
-                type ENUM('bollywood') NOT NULL
+                type VARCHAR(250) NOT NULL
             )";
             $conn->query($createTableSql);
         }

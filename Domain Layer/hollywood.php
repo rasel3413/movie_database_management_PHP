@@ -40,7 +40,7 @@ class HollyWoodMovie extends Movie
                 producer VARCHAR(255) NOT NULL,
                 boxOffice FLOAT,
                 language VARCHAR(50),
-                type ENUM('hollywood') NOT NULL
+                type VARCHAR(250) NOT NULL
             )";
             $conn->query($createTableSql);
         }

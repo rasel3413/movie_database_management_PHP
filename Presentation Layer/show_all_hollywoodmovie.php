@@ -41,6 +41,7 @@ $movies =  $handler->getAllHollywoodMovies();
                         <th>Duration</th>
                         <th>Director</th>
                         <th>Producer</th>
+                        <th>Box Office</th>
 
                         <th>Language</th>
                         <th>Type</th>
@@ -57,6 +58,7 @@ $movies =  $handler->getAllHollywoodMovies();
                             <td><?php echo ($row['duration']); ?></td>
                             <td><?php echo ($row['director']); ?></td>
                             <td><?php echo ($row['producer']); ?></td>
+                            <td><?php echo ($row['boxOffice'])."$"; ?></td>
 
                             <td><?php echo ($row['language']); ?></td>
                             <td><?php echo ($row['type']); ?></td>
