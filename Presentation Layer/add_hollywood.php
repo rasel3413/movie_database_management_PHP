@@ -2,15 +2,19 @@
 include 'header.php';
 ?>
 <?php
-require '../Application Layer/add_hollywood_handler.php';
+// require '../Application Layer/add_hollywood_handler.php';
 include '../Data Layer/db_connect.php';
 
+require '../Application Layer/movie_manager.php';
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $handler = new AddHollywoodMovieHandler($conn);
-    $message = $handler->handleRequest($_POST);
+    $handler = new MovieManager($conn);
+    $message = $handler->addHollywood($_POST);
     echo $message;
 }
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -56,12 +60,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <input type="text" class="form-control" id="producer" name="producer" required>
             </div>
             <div class="form-group">
-                <label for="boxOffice">Box Office</label>
-                <input type="number" step="0.01" class="form-control" id="boxOffice" name="boxOffice">
+                <label for="boxOffice">Box Office Collection (in USD)</label>
+                <input type="number" step="0.01" min="0" max="10000000000" class="form-control" id="boxOffice" name="boxOffice" required>
+
             </div>
             <div class="form-group">
                 <label for="language">Language</label>
-                <input type="text" class="form-control" id="language" name="language">
+                <input type="text" class="form-control" id="language" name="language" required>
             </div>
             <button type="submit" class="btn btn-primary">Add Movie</button>
         </form>

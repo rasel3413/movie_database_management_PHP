@@ -1,37 +1,34 @@
 <?php
-
-include 'movie.php';
-class HollyWoodMovie extends Movie {
+// echo "i am in the hollywood movie";
+require_once 'movie.php';
+class HollyWoodMovie extends Movie
+{
     private $boxOffice;
     private $language;
 
-    public function __construct($title, $releaseYear, $genre, $ratings, $duration, $director, $producer, $boxOffice, $language) {
+    public function __construct(
+        $title = null,
+        $releaseYear = null,
+        $genre = null,
+        $ratings = null,
+        $duration = null,
+        $director = null,
+        $producer = null,
+        $boxOffice = null,
+        $language = null
+    ) {
         parent::__construct($title, $releaseYear, $genre, $ratings, $duration, $director, $producer, "hollywood");
         $this->boxOffice = $boxOffice;
         $this->language = $language;
     }
 
-    public function getDescription($attribute,$conn,$searchValue) {
-        return [
-            'title' => $this->title,
-            'releaseYear' => $this->releaseYear,
-            'genre' => $this->genre,
-            'ratings' => $this->ratings,
-            'duration' => $this->duration,
-            'director' => $this->director,
-            'producer' => $this->producer,
-            'awards' => array_map(function($a) { return $a->getDetails(); }, $this->awards),
-            'actors' => array_map(function($a) { return $a->getDetails(); }, $this->actors),
-            'boxOffice' => $this->boxOffice,
-            'language' => $this->language,
-            'type' => $this->type
-        ];
-    }
+    public function getDescription($attribute, $conn, $searchValue) {}
 
-    public function saveToDatabase($conn) {
+    public function saveToDatabase($conn)
+    {
         $result = $conn->query("SHOW TABLES LIKE 'hollywood'");
         if ($result->num_rows == 0) {
-          
+
             $createTableSql = "CREATE TABLE hollywood (
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 title VARCHAR(255) NOT NULL,
@@ -48,7 +45,7 @@ class HollyWoodMovie extends Movie {
             $conn->query($createTableSql);
         }
 
-       
+
         $insertSql = "INSERT INTO hollywood (title, releaseYear, genre, ratings, duration, director, producer, boxOffice, language, type) 
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'hollywood')";
 
@@ -57,7 +54,7 @@ class HollyWoodMovie extends Movie {
             die("Error preparing statement: " . $conn->error);
         }
 
-      
+
         $stmt->bind_param("ssssissss", $this->title, $this->releaseYear, $this->genre, $this->ratings, $this->duration, $this->director, $this->producer, $this->boxOffice, $this->language);
 
         if ($stmt->execute()) {
@@ -70,5 +67,3 @@ class HollyWoodMovie extends Movie {
         $conn->close();
     }
 }
-
-?>

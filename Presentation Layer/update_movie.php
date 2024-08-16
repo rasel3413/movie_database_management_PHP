@@ -4,13 +4,13 @@ include 'header.php';
 <?php
 include '../Data Layer/db_connect.php';
 include '../Domain Layer/movie.php';
-require '../Application Layer/search_movie_handler.php';
+require '../Application Layer/movie_manager.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['searchValue'])) {
         $attribute = $_POST['attribute'];
         $searchValue = $_POST['searchValue'];
-        $handler = new SearchMovieHandler($conn);
+        $handler = new MovieManager($conn);
 
 
         $result =  $handler->searchMovies($attribute, $searchValue);

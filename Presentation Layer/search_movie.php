@@ -2,11 +2,11 @@
 <?php
 require '../Data Layer/db_connect.php';
 include '../Domain Layer/movie.php';
-require '../Application Layer/search_movie_handler.php';
+require '../Application Layer/movie_manager.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $attribute = $_POST['attribute'];
     $searchValue = $_POST['searchValue'];
-    $handler = new SearchMovieHandler($conn);
+    $handler = new MovieManager($conn);
     $result =  $handler->searchMovies($attribute, $searchValue);
     if ($result->num_rows > 0) {
         echo '<div class="container m-4">';

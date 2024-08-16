@@ -1,7 +1,8 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-include 'Imovie.php';
+// echo "<br>i am in the movie class";
+require_once 'Imovie.php';
 class Movie implements IMovie
 {
     protected $title;
@@ -11,11 +12,10 @@ class Movie implements IMovie
     protected $duration;
     protected $director;
     protected $producer;
-    protected $awards = [];
-    protected $actors = [];
     protected $type;
+    protected $conn;
 
-    public function __construct($title, $releaseYear, $genre, $ratings, $duration, $director, $producer, $type)
+    public function __construct($title=null, $releaseYear=null, $genre=null, $ratings=null, $duration=null, $director=null, $producer=null, $type=null,$conn=null)
     {
         $this->title = $title;
         $this->releaseYear = $releaseYear;
@@ -25,6 +25,7 @@ class Movie implements IMovie
         $this->director = $director;
         $this->producer = $producer;
         $this->type = $type;
+        $this->conn=$conn;
     }
 
 
@@ -43,5 +44,27 @@ class Movie implements IMovie
                 $this->$key = $value;
             }
         }
+    }
+    public function searchMovies($attribute, $searchValue)
+    {
+        $validAttributes = ['title', 'releaseYear', 'genre', 'ratings', 'duration', 'director', 'producer', 'songs', 'language'];
+        if (!in_array($attribute, $validAttributes)) {
+            throw new Exception("Invalid search attribute.");
+        }
+
+        $sql = "SELECT * FROM bollywood WHERE $attribute LIKE ? UNION SELECT * FROM hollywood WHERE $attribute LIKE ?";
+        $stmt = $this->conn->prepare($sql);
+        if ($stmt === false) {
+            throw new Exception("Error preparing statement: " . $this->conn->error);
+        }
+
+        $searchValue = "%$searchValue%";
+        $stmt->bind_param("ss", $searchValue, $searchValue);
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+
+        $stmt->close();
+        return $result;
     }
 }

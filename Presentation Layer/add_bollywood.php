@@ -3,12 +3,16 @@
     ?>
 <?php
 // echo "i am here in add bollywood ";
-require_once '../Application Layer/add_bollywood_handler.php'; 
+// require_once '../Application Layer/add_bollywood_handler.php'; 
+
 include '../Data Layer/db_connect.php'; 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+require '../Application Layer/movie_manager.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $handler = new AddBollywoodMovieHandler($conn);
-    $message = $handler->handleRequest($_POST);
+    $handler = new MovieManager($conn);
+    $message = $handler->addBollywood($_POST);
     echo $message;
 }
 ?>

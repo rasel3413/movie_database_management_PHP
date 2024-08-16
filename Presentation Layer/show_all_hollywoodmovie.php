@@ -4,8 +4,9 @@ include 'header.php';
 <?php
 include_once '../Data Layer/db_connect.php';
 include_once '../Domain Layer/movie.php';
-include_once '../Application Layer/search_movie_handler.php';
-$handler = new SearchMovieHandler($conn);
+require '../Application Layer/movie_manager.php';
+
+$handler = new MovieManager($conn);
 
 
 $movies =  $handler->getAllHollywoodMovies();

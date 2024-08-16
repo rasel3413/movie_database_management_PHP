@@ -1,17 +1,27 @@
 <?php
-include 'movie.php';
+// echo "i am in the bollywood movie";
+require_once 'movie.php';
 class BollywoodMovie extends Movie
 {
     private $songs;
     private $language;
 
-    public function __construct($title, $releaseYear, $genre, $ratings, $duration, $director, $producer, $songs, $language)
-    {
+    public function __construct(
+        $title = null, 
+        $releaseYear = null, 
+        $genre = null, 
+        $ratings = null, 
+        $duration = null, 
+        $director = null, 
+        $producer = null, 
+        $songs = null, 
+        $language = null
+    ) {
         parent::__construct($title, $releaseYear, $genre, $ratings, $duration, $director, $producer, "bollywood");
         $this->songs = $songs;
         $this->language = $language;
     }
-
+    
     public function saveToDatabase($conn)
     {
 
